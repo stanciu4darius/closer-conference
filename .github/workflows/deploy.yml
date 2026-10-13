@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Deploy on every push to main.
+  push:
+    branches: [main]
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+# Permissions required by the GitHub Pages deployment action.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment; don't cancel in-progress production runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        # The base path defaults to "" (root) for the custom domain
+        # https://conferintacloser.ro — see next.config.mjs. The public/CNAME
+        # file ships in the export and tells GitHub Pages to serve at that domain.
+        #
+        # To instead test the raw project URL (…github.io/closer-conference)
+        # before DNS is live, build with the prefix:
+        #   run: NEXT_PUBLIC_BASE_PATH=/closer-conference npm run build
+        run: npm run build
+
+      - name: Disable Jekyll processing
+        # Ensures GitHub Pages serves the Next.js `_next` folder (names starting with _).
+        run: touch out/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/* ───────────────────────────── Design tokens ─────────────────────────────
+   Derived from the official CLOSER artwork: warm paper, peach + golden glow,
+   near-black ink. These become Tailwind utilities (bg-paper, text-ink, …).   */
+@theme {
+  --color-paper: #ece7dd;
+  --color-paper-soft: #f2eee6;
+  --color-paper-deep: #e2dccf;
+  --color-ink: #16130d;
+  --color-ink-soft: #413a2e;
+  --color-ink-faint: #837a68;
+  --color-peach: #e3915f;
+  --color-peach-soft: #efb089;
+  --color-gold: #e3b24d;
+  --color-line: #c9c1b0;
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --shadow-card: 0 1px 1px rgba(22, 19, 13, 0.02),
+    0 18px 40px -24px rgba(22, 19, 13, 0.28);
+}
+
+/* ───────────────────────────── Base layer ──────────────────────────────── */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv05";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-peach);
+    color: #fff;
+  }
+
+  /* A refined, on-brand focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ───────────────────────────── Utilities ───────────────────────────────── */
+@layer utilities {
+  /* Eyebrow / label styling used across sections. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.34em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--color-ink-faint);
+  }
+
+  /* Paper grain — a subtle fixed film over the whole page. */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Warm radial glow, echoing the logo's top-left light source. */
+  .glow-peach {
+    background: radial-gradient(
+      circle at center,
+      rgba(227, 145, 95, 0.55) 0%,
+      rgba(227, 178, 77, 0.28) 32%,
+      rgba(236, 231, 221, 0) 68%
+    );
+  }
+
+  .glow-gold {
+    background: radial-gradient(
+      circle at center,
+      rgba(227, 178, 77, 0.42) 0%,
+      rgba(236, 231, 221, 0) 70%
+    );
+  }
+
+  /* Hairline divider that matches the paper palette. */
+  .hairline {
+    border-color: var(--color-line);
+  }
+
+  /* Edge-fade mask so the logo artwork melts into the paper background. */
+  .logo-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse 62% 58% at 50% 50%,
+      #000 54%,
+      transparent 82%
+    );
+    mask-image: radial-gradient(
+      ellipse 62% 58% at 50% 50%,
+      #000 54%,
+      transparent 82%
+    );
+  }
+
+  /* Balance headline line breaks where supported. */
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* ─────────────────────── Keyframe animations ───────────────────────────── */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 48s linear infinite;
+}
+.animate-float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+.animate-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-float-soft,
+  .animate-twinkle,
+  .animate-marquee {
+    animation: none !important;
+  }
+}
