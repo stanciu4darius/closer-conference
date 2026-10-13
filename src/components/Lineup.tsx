@@ -82,8 +82,7 @@ export function Lineup() {
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mb-11 max-w-2xl sm:mb-16">
-          <span className="eyebrow">Lineup</span>
-          <h2 className="text-balance mt-5 font-display text-4xl font-light leading-tight tracking-tight text-ink sm:text-5xl md:text-6xl">
+          <h2 className="text-balance font-display text-4xl font-light leading-tight tracking-tight text-ink sm:text-5xl md:text-6xl">
             Ceva se pregătește.
           </h2>
           <p className="text-pretty mt-5 max-w-lg text-base leading-relaxed text-ink-soft">
