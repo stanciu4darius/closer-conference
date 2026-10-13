@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { SITE } from "@/lib/site";
 import { Star } from "./Star";
 
@@ -9,6 +9,7 @@ type Props = {
   size?: "md" | "lg";
   label?: string;
   className?: string;
+  onClick?: () => void;
 };
 
 export function RegisterButton({
@@ -16,9 +17,8 @@ export function RegisterButton({
   size = "md",
   label = "Înscrie-te",
   className = "",
+  onClick,
 }: Props) {
-  const reduce = useReducedMotion();
-
   const base =
     "group relative inline-flex items-center justify-center gap-3 rounded-full font-sans font-medium tracking-wide transition-colors duration-500 ease-[var(--ease-out-soft)] will-change-transform focus-visible:outline-offset-4";
 
@@ -40,10 +40,11 @@ export function RegisterButton({
       href={SITE.registrationUrl}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={onClick}
       aria-label={`${label} — CLOSER Conference 2026`}
       className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
-      whileHover={reduce ? undefined : { scale: 1.035 }}
-      whileTap={reduce ? undefined : { scale: 0.97 }}
+      whileHover={{ scale: 1.035 }}
+      whileTap={{ scale: 0.97 }}
       transition={{ type: "spring", stiffness: 380, damping: 24 }}
     >
       <span className="uppercase tracking-[0.18em]">{label}</span>

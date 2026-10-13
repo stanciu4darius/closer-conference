@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden border-t border-line/50 py-28 sm:py-44">
+    <section className="relative overflow-hidden border-t border-line/50 py-24 sm:py-44">
       <div
         aria-hidden
         className="glow-peach pointer-events-none absolute left-1/2 top-1/2 h-[60vmax] w-[60vmax] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-80 blur-[30px]"
@@ -24,20 +24,25 @@ export function FinalCta() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <h2 className="text-balance font-display text-5xl font-light leading-[1.02] tracking-tight text-ink sm:text-7xl md:text-[5.5rem]">
+          <h2 className="text-balance font-display text-[2.9rem] font-light leading-[1.02] tracking-tight text-ink sm:text-7xl md:text-[5.5rem]">
             Vino mai <span className="italic">aproape</span>.
           </h2>
         </Reveal>
 
         <Reveal delay={0.12}>
-          <p className="text-pretty mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="text-pretty mt-7 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-lg">
             Inima Îl caută. Vino să ne apropiem împreună de fața Lui — cu
             așteptare, cu bucurie și cu inima deschisă.
           </p>
         </Reveal>
 
-        <Reveal delay={0.2} className="mt-12">
-          <RegisterButton size="lg" variant="solid" label="Înscrie-te acum" />
+        <Reveal delay={0.2} className="mt-10 w-full sm:mt-12">
+          <RegisterButton
+            size="lg"
+            variant="solid"
+            label="Înscrie-te acum"
+            className="w-full max-w-xs sm:w-auto sm:max-w-none"
+          />
         </Reveal>
 
         <Reveal delay={0.28}>

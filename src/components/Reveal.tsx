@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -25,8 +25,6 @@ export function Reveal({
   as = "div",
   once = true,
 }: RevealProps) {
-  const reduce = useReducedMotion();
-
   const offset = {
     up: { y: DISTANCE },
     down: { y: -DISTANCE },
@@ -35,14 +33,18 @@ export function Reveal({
     none: {},
   }[from];
 
+  // Deterministic markup (identical on server and client). Reduced-motion is
+  // handled by <MotionConfig reducedMotion="user">, which snaps the transform
+  // instantly while keeping the opacity fade — no reliance on useReducedMotion()
+  // here, which would differ between SSR and a reduced-motion client.
   const variants: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, ...offset },
+    hidden: { opacity: 0, ...offset },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
       transition: {
-        duration: reduce ? 0.3 : 0.9,
+        duration: 0.9,
         ease: [0.22, 1, 0.36, 1],
         delay,
       },

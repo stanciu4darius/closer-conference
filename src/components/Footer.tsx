@@ -6,8 +6,8 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-line/60 bg-paper-deep/40">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <div className="flex flex-col justify-between gap-12 md:flex-row">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:gap-12">
           <div className="max-w-sm">
             <a
               href="#top"

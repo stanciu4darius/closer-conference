@@ -1,16 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { Reveal } from "./Reveal";
 import { Star } from "./Star";
 
 export function WorshipRoom() {
-  const reduce = useReducedMotion();
-
   return (
     <section
       id="worship-room"
-      className="relative overflow-hidden bg-ink py-28 text-paper-soft sm:py-40"
+      className="relative overflow-hidden bg-ink py-24 text-paper-soft sm:py-40"
     >
       {/* Warm glow from within the dark room */}
       <div
@@ -33,7 +31,7 @@ export function WorshipRoom() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-10 flex select-none overflow-hidden opacity-[0.06]"
       >
-        <div className="animate-marquee flex shrink-0 gap-10 whitespace-nowrap font-display text-7xl font-light tracking-tight sm:text-8xl">
+        <div className="animate-marquee flex shrink-0 gap-10 whitespace-nowrap font-display text-6xl font-light tracking-tight sm:text-8xl">
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i} className="flex gap-10">
               <span>Worship Room</span>
@@ -64,9 +62,10 @@ export function WorshipRoom() {
         </Reveal>
 
         {/* Pulsing time placeholder */}
-        <Reveal delay={0.15} className="mt-12">
+        <Reveal delay={0.15} className="mt-10 sm:mt-12">
           <motion.div
-            animate={reduce ? undefined : { opacity: [0.45, 1, 0.45] }}
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: [0.45, 1, 0.45] }}
             transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
             className="flex items-center gap-4 font-display text-3xl font-light tracking-[0.3em] text-paper-soft/80 sm:text-4xl"
           >

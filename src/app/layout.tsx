@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { SITE, VERSE, asset } from "@/lib/site";
+import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -76,6 +77,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Stop iOS Safari from auto-linking times/dates/numbers (e.g. "15:00",
+  // "27:8", "21 Noiembrie 2026"), which would rewrite the DOM and could
+  // otherwise trigger hydration mismatches on iPhone.
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+  },
   category: "event",
 };
 
@@ -91,7 +101,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ro" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="grain antialiased">{children}</body>
+      <body className="grain antialiased">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

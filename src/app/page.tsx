@@ -1,5 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { HeroMobile } from "@/components/HeroMobile";
+import { BannerMobile } from "@/components/BannerMobile";
 import { Vision } from "@/components/Vision";
 import { Lineup } from "@/components/Lineup";
 import { Schedule } from "@/components/Schedule";
@@ -51,8 +53,18 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
       <Nav />
+      <span id="top" aria-hidden className="absolute top-0" />
+      {/* Single document heading, always present for SEO/screen readers. */}
+      <h1 className="sr-only">
+        {SITE.name} — {SITE.dateLabel}. Conferință de tineret creștin, Biserica
+        Sfânta Treime Beclean.
+      </h1>
       <main>
+        {/* Mobile-only hero (logo centerpiece) + banner poster; desktop hero
+            is a separate, unchanged component shown from md upward. */}
+        <HeroMobile />
         <Hero />
+        <BannerMobile />
         <Vision />
         <Lineup />
         <Schedule />

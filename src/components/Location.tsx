@@ -7,13 +7,13 @@ export function Location() {
   return (
     <section
       id="locatie"
-      className="relative border-t border-line/50 py-28 sm:py-36"
+      className="relative border-t border-line/50 py-20 sm:py-36"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid items-center gap-14 md:grid-cols-2 md:gap-20">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-20">
           <Reveal>
             <span className="eyebrow">Locație</span>
-            <h2 className="text-balance mt-6 font-display text-[2.6rem] font-light leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl">
+            <h2 className="text-balance mt-5 font-display text-[2.4rem] font-light leading-[1.05] tracking-tight text-ink sm:mt-6 sm:text-5xl md:text-6xl">
               Biserica
               <br />
               <span className="italic">Sfânta Treime</span>
@@ -22,13 +22,13 @@ export function Location() {
               <span className="h-px w-8 bg-ink/30" />
               Beclean · România
             </p>
-            <p className="text-pretty mt-8 max-w-md text-base leading-relaxed text-ink-soft">
+            <p className="text-pretty mt-6 max-w-md text-[0.95rem] leading-relaxed text-ink-soft sm:mt-8 sm:text-base">
               Te așteptăm la Biserica Sfânta Treime din Beclean — un loc în care
               ne strângem ca o generație, pentru a-I căuta împreună fața.
             </p>
           </Reveal>
 
-          <Reveal from="left" delay={0.1}>
+          <Reveal from="up" delay={0.1}>
             <div className="group relative aspect-[4/3] overflow-hidden rounded-[1.75rem] border border-line/70 bg-paper-soft/50 shadow-[var(--shadow-card)]">
               {/* Stylised map placeholder */}
               <div
