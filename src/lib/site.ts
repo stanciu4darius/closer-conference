@@ -42,7 +42,19 @@ export const SCHEDULE = [
   },
 ] as const;
 
-export const LINEUP = [
+export type LineupItem = {
+  label: string;
+  status: string;
+  hint: string;
+  /** When present, the card is a reveal (image poster) instead of a mystery. */
+  image?: string;
+  /** The revealed name shown alongside the poster. */
+  name?: string;
+  /** Alt text for the reveal image. */
+  alt?: string;
+};
+
+export const LINEUP: LineupItem[] = [
   {
     label: "Message",
     status: "Stay Tuned",
@@ -50,16 +62,18 @@ export const LINEUP = [
   },
   {
     label: "Worship",
-    status: "Stay Tuned",
-    hint: "Echipa de închinare va fi anunțată în curând.",
+    status: "Revelat",
+    hint: "Echipa de închinare Revel — Simone Asăndoaie & Band — ne conduce în închinare.",
+    name: "Revel · Simone Asăndoaie & Band",
+    image: "/images/worship-revel.jpeg",
+    alt: "Echipa de închinare Revel — Simone Asăndoaie & Band — la CLOSER Conference 2026, 21 Noiembrie 2026, Biserica Sfânta Treime Beclean.",
   },
-] as const;
+];
 
 export const NAV_LINKS = [
   { label: "Viziune", href: "#viziune" },
   { label: "Lineup", href: "#lineup" },
   { label: "Program", href: "#program" },
-  { label: "Worship Room", href: "#worship-room" },
   { label: "Locație", href: "#locatie" },
 ] as const;
 

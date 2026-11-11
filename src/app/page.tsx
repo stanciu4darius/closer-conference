@@ -5,7 +5,6 @@ import { BannerMobile } from "@/components/BannerMobile";
 import { Vision } from "@/components/Vision";
 import { Lineup } from "@/components/Lineup";
 import { Schedule } from "@/components/Schedule";
-import { WorshipRoom } from "@/components/WorshipRoom";
 import { Location } from "@/components/Location";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
@@ -68,7 +67,6 @@ export default function Home() {
         <Vision />
         <Lineup />
         <Schedule />
-        <WorshipRoom />
         <Location />
         <FinalCta />
       </main>

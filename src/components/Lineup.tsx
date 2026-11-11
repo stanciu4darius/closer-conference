@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
-import { LINEUP } from "@/lib/site";
+import { LINEUP, asset, type LineupItem } from "@/lib/site";
 import { Reveal } from "./Reveal";
 import { Star } from "./Star";
 
@@ -74,6 +75,78 @@ function MysteryCard({
   );
 }
 
+function RevealCard({
+  label,
+  status,
+  name,
+  hint,
+  image,
+  alt,
+  index,
+}: {
+  label: string;
+  status: string;
+  name?: string;
+  hint: string;
+  image: string;
+  alt?: string;
+  index: number;
+}) {
+  return (
+    <Reveal delay={index * 0.12} className="group relative">
+      <motion.div
+        whileHover={{ y: -8 }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+        className="relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-line/70 bg-paper-soft/60 p-3 shadow-[var(--shadow-card)] backdrop-blur-sm sm:rounded-[1.75rem] sm:p-4"
+      >
+        {/* Warm reveal glow behind the poster */}
+        <div
+          aria-hidden
+          className="glow-peach pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-70 blur-[22px]"
+        />
+
+        <div className="relative mb-3 flex items-center justify-between px-2 pt-1 sm:mb-4">
+          <span className="eyebrow">{`0${index + 1}`}</span>
+          <span className="eyebrow">{label}</span>
+        </div>
+
+        {/* The poster — shown in full at its native 4:5 ratio, no crop/stretch */}
+        <div className="relative overflow-hidden rounded-[1rem] ring-1 ring-ink/10 sm:rounded-[1.25rem]">
+          <Image
+            src={asset(image)}
+            alt={alt ?? `${label} — ${name ?? ""}`}
+            width={1080}
+            height={1350}
+            sizes="(max-width: 767px) 92vw, (max-width: 1023px) 46vw, 560px"
+            className="h-auto w-full select-none"
+            draggable={false}
+            priority={false}
+          />
+        </div>
+
+        <div className="relative px-2 pb-1 pt-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-peach" />
+            </span>
+            <span className="font-display text-sm uppercase tracking-[0.28em] text-ink">
+              {status}
+            </span>
+          </div>
+          {name && (
+            <p className="font-display text-lg font-light leading-tight tracking-tight text-ink sm:text-xl">
+              {name}
+            </p>
+          )}
+          <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">
+            {hint}
+          </p>
+        </div>
+      </motion.div>
+    </Reveal>
+  );
+}
+
 export function Lineup() {
   return (
     <section
@@ -83,24 +156,37 @@ export function Lineup() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mb-11 max-w-2xl sm:mb-16">
           <h2 className="text-balance font-display text-4xl font-light leading-tight tracking-tight text-ink sm:text-5xl md:text-6xl">
-            Ceva se pregătește.
+            Primul nume e aici.
           </h2>
           <p className="text-pretty mt-5 max-w-lg text-base leading-relaxed text-ink-soft">
-            Vorbitorul și echipa de închinare vor fi dezvăluiți în curând.
-            Rămâi aproape — anunțurile urmează.
+            Echipa de închinare a fost dezvăluită. Vorbitorul va fi anunțat în
+            curând — rămâi aproape.
           </p>
         </Reveal>
 
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-          {LINEUP.map((item, i) => (
-            <MysteryCard
-              key={item.label}
-              label={item.label}
-              status={item.status}
-              hint={item.hint}
-              index={i}
-            />
-          ))}
+          {LINEUP.map((item: LineupItem, i) =>
+            item.image ? (
+              <RevealCard
+                key={item.label}
+                label={item.label}
+                status={item.status}
+                name={item.name}
+                hint={item.hint}
+                image={item.image}
+                alt={item.alt}
+                index={i}
+              />
+            ) : (
+              <MysteryCard
+                key={item.label}
+                label={item.label}
+                status={item.status}
+                hint={item.hint}
+                index={i}
+              />
+            )
+          )}
         </div>
       </div>
     </section>
