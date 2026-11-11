@@ -13,8 +13,8 @@ function MysteryCard({
   index,
 }: {
   label: string;
-  status: string;
-  hint: string;
+  status?: string;
+  hint?: string;
   index: number;
 }) {
   return (
@@ -77,17 +77,13 @@ function MysteryCard({
 
 function RevealCard({
   label,
-  status,
-  name,
-  hint,
+  body,
   image,
   alt,
   index,
 }: {
   label: string;
-  status: string;
-  name?: string;
-  hint: string;
+  body?: readonly string[];
   image: string;
   alt?: string;
   index: number;
@@ -114,7 +110,7 @@ function RevealCard({
         <div className="relative overflow-hidden rounded-[1rem] ring-1 ring-ink/10 sm:rounded-[1.25rem]">
           <Image
             src={asset(image)}
-            alt={alt ?? `${label} — ${name ?? ""}`}
+            alt={alt ?? label}
             width={1080}
             height={1350}
             sizes="(max-width: 767px) 92vw, (max-width: 1023px) 46vw, 560px"
@@ -124,24 +120,20 @@ function RevealCard({
           />
         </div>
 
-        <div className="relative px-2 pb-1 pt-4">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-peach" />
-            </span>
-            <span className="font-display text-sm uppercase tracking-[0.28em] text-ink">
-              {status}
-            </span>
+        {body && body.length > 0 && (
+          <div className="relative px-3 pb-2 pt-5 sm:px-4 sm:pt-6">
+            {body.map((para, i) => (
+              <p
+                key={i}
+                className={`text-pretty max-w-md text-[0.95rem] leading-relaxed text-ink-soft sm:text-base ${
+                  i > 0 ? "mt-3.5" : ""
+                }`}
+              >
+                {para}
+              </p>
+            ))}
           </div>
-          {name && (
-            <p className="font-display text-lg font-light leading-tight tracking-tight text-ink sm:text-xl">
-              {name}
-            </p>
-          )}
-          <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">
-            {hint}
-          </p>
-        </div>
+        )}
       </motion.div>
     </Reveal>
   );
@@ -170,9 +162,7 @@ export function Lineup() {
               <RevealCard
                 key={item.label}
                 label={item.label}
-                status={item.status}
-                name={item.name}
-                hint={item.hint}
+                body={item.body}
                 image={item.image}
                 alt={item.alt}
                 index={i}
